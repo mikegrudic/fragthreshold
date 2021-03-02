@@ -25,7 +25,7 @@ for infall_mach in infall_machs:
 
                 Ngas = max(100 * infall_mach**4, 10000) # number of gas cells in the core proper - we might as well always have at least 10k, but in Guszejnov 2020 we showed you want to make sure it's at least ~100 Mach^4 as well for things to really be converged
             
-                run_name = "mach%g_alpha%g_mu%g_Res%d_%d"%(round(infall_mach,2), round(alpha,2), round(mu,2), seed, round(Ngas**(1./3))) # this will be the unique identifier for the run - will want to create a new directory with this name
+                run_name = "mach%g_alpha%g_mu%g_Res%d_%d"%(round(infall_mach,2), round(alpha,2), round(mu,2), round(Ngas**(1./3)), seed) # this will be the unique identifier for the run - will want to create a new directory with this name
                 if not isdir(run_name): mkdir(run_name) # if the directory for the run does not exist, create it
                 chdir(run_name)
                 makecloud_command = "MakeCloud.py --M=%g --R=%g --N=%d --warmgas --bturb=%g --alpha_turb=%g"%(M,R,Ngas,Emag,alpha)
