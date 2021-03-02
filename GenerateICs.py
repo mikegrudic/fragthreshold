@@ -24,6 +24,7 @@ for infall_mach in infall_machs:
                 Emag = (mu/0.4)**-2. # fraction of binding energy as magnetic energy
 
                 Ngas = max(100 * infall_mach**4, 10000) # number of gas cells in the core proper - we might as well always have at least 10k, but in Guszejnov 2020 we showed you want to make sure it's at least ~100 Mach^4 as well for things to really be converged
+                run_length = min(round((Ngas/1e4)**(5./3)), 48) # run length in hours
             
                 run_name = "mach%g_alpha%g_mu%g_Res%d_%d"%(round(infall_mach,2), round(alpha,2), round(mu,2), round(Ngas**(1./3)), seed) # this will be the unique identifier for the run - will want to create a new directory with this name
                 if not isdir(run_name): mkdir(run_name) # if the directory for the run does not exist, create it
@@ -34,7 +35,7 @@ for infall_mach in infall_machs:
                 
                 params_file_name = glob("params*.txt")[0] # to get the exact parameter filename, search for things matching the pattern and take the first result
 
-                submit_script_text = open("../template_submit.sh","r").read().replace("JOBNAME", run_name).replace("PARAMSFILE",params_file_name) # generate the text to write to the submit script
+                submit_script_text = open("../template_submit.sh","r").read().replace("JOBNAME", run_name).replace("PARAMSFILE",params_file_name).replace("HOURS", str(run_length)) # generate the text to write to the submit script
                 open(run_name + ".sh", "w").write(submit_script_text) # write the submit script
                 
                 chdir("../") # go back to the top level directory
