@@ -26,7 +26,7 @@ for infall_mach in infall_machs:
                 for sol_frac in sol_fracs:
                     run_name = "mach%g_alpha%g_mu%g_sol%g_Res%d_%d"%(round(infall_mach,2), round(alpha,2), round(mu,2), sol_frac, round(Ngas**(1./3)), seed) # this will be the unique identifier for the run - will want to create a new directory with this name
                     chdir(run_name)
-                    submit_command = "sbatch " + run_name + ".sh""
+                    submit_command = ""sbatch " + run_name + ".sh""
                     print(submit_command)
 
                     chdir("../") # go back to the top level directory
