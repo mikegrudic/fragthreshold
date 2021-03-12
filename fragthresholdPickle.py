@@ -53,6 +53,7 @@ for infall_mach in infall_machs:
                     MachList = []
                     tenPercentList = []
                     for i in range(750,751): #This is for taking the FINAL Mach and Fraction#.
+                        system("pwd")
                         tenPercentFraction = []
                         tenPercentList = []
                         MachDict[run_name][i] = MachList
