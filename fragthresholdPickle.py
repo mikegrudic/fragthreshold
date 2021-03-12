@@ -1,11 +1,9 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[3]:
 
 
 import numpy as np
-import load_from_snapshot
 import h5py
 from matplotlib import pyplot as plt
 import pickle
@@ -15,11 +13,10 @@ from os.path import isdir
 import numpy as np
 
 
-# In[57]:
 
 
 #This program is intended to be run in the directory that contains a collection of simulations.
-chdir("/work/08056/hlane17/fragthreshold/")
+chdir("/work/08056/hlane17/frontera/fragthreshold/")
 G = 4300.7 # gravitational constant in m/s - msun - pc units
 cs = 200 # isothermal sound speed in m/s (= pressure/density, appropriate for ISM at ~10K)
 sigma = 1e3 # surface density M/(pi R^2) in msun pc^-2 (this is arbitrary, just to set the dimensions of our problem - 1000 roughly corresponds to observed cores)
@@ -29,7 +26,7 @@ alphas = 0, 0.5, 1, 2, 4, 8 #list of turbulent virial parameters we want - 0 is 
 mus = 4, #np.inf, 4, 2, 1, 0.5, 0.25  # list of mass-to-flux ratios (greek letter mu) that we want - infinity is no magnetic field, ~0 is very strong magnetic field
 seeds = 42, #42, 2, 3 # different initial turbulent seed fields - so that we try a few different random samplings of the initial turbulence to make sure results are not a fluke
 sol_fracs = 0.5,  # 0, 1 # fraction of turbulent field in solenoidal modes 
-if not isdir(allPickle): mkdir(allPickle) # if the directory for the run does not exist, create it
+if not isdir("allPickle"): mkdir("allPickle") # if the directory for the run does not exist, create it
 dict = {}
 MachDict = {}
 tenPercentFractionDict = {}
@@ -86,16 +83,3 @@ for infall_mach in infall_machs:
                     pickle.dump(dict[run_name], F)
                     F.close()
                     chdir("../") #go back to the top level directory
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
