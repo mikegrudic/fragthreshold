@@ -15,8 +15,9 @@ import numpy as np
 
 
 
+
 #This program is intended to be run in the directory that contains a collection of simulations.
-chdir("/work/08056/hlane/frontera/fragthreshold")
+chdir("/home/hlane/project1Sims")
 G = 4300.7 # gravitational constant in m/s - msun - pc units
 cs = 200 # isothermal sound speed in m/s (= pressure/density, appropriate for ISM at ~10K)
 sigma = 1e3 # surface density M/(pi R^2) in msun pc^-2 (this is arbitrary, just to set the dimensions of our problem - 1000 roughly corresponds to observed cores)
@@ -53,10 +54,12 @@ for infall_mach in infall_machs:
                     tenPercentFractionDict[run_name] = {}
                     MachList = []
                     tenPercentList = []
-                    tenPercentFraction = []
-                    num = ls -1 | wc -l
-                    for i in range(num-6,num-5): 
-                        #tenPercentList = []
+                    cpt = sum([len(files) for r, d, files in os.walk("/home/hlane/project1Sims/" + run_name +"output")])
+                    system("pwd")
+                    print(cpt)
+                    for i in range(cpt-6,cpt-5): 
+                        tenPercentFraction = []
+                        tenPercentList = []
                         MachDict[run_name][i] = MachList
                         tenPercentFractionDict[run_name][i] = tenPercentList
 
