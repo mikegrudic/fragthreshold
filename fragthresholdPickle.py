@@ -32,10 +32,7 @@ if not isdir("allPickle"): mkdir("allPickle") # if the directory for the run doe
 dict = {}
 MachDict = {}
 tenPercentFractionDict = {}
-
-
 for infall_mach in infall_machs:
-    print(infall_mach)
     for alpha in alphas:
         for mu in mus:
             for seed in seeds:                
@@ -55,10 +52,13 @@ for infall_mach in infall_machs:
                     tenPercentFractionDict[run_name] = {}
                     MachList = []
                     tenPercentList = []
-                    cpt = sum([len(files) for r, d, files in os.walk("/home/hlane/project1Sims/" + run_name +"output")])
+                    d="/work/08056/hlane17/frontera/fragthreshold" + run_name + "/output"
+                    for path in os.listdir(d):
+                        if os.path.isfile(os.path.join(d, path)):
+                            numFiles += 1
                     system("pwd")
-                    print(cpt)
-                    for i in range(cpt-6,cpt-5): 
+                    print(numFiles)
+                    for i in range(numFiles-5,numFiles-4): 
                         tenPercentFraction = []
                         tenPercentList = []
                         MachDict[run_name][i] = MachList
@@ -89,4 +89,6 @@ for infall_mach in infall_machs:
                     pickle.dump(dict[run_name], F)
                     F.close()
                     chdir("../") #go back to the top level directory
+
+
 
