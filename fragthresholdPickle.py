@@ -1,3 +1,5 @@
+
+
 #!/usr/bin/env python
 # coding: utf-8
 
@@ -23,7 +25,7 @@ G = 4300.7 # gravitational constant in m/s - msun - pc units
 cs = 200 # isothermal sound speed in m/s (= pressure/density, appropriate for ISM at ~10K)
 sigma = 1e3 # surface density M/(pi R^2) in msun pc^-2 (this is arbitrary, just to set the dimensions of our problem - 1000 roughly corresponds to observed cores)
 
-infall_machs = np.logspace(0,3,7,base=2) # the list of infall mach #'s we want - ranges from 1 to 8, evenly spaced in log space (each is a certain % larger than the last, in a geometric progression)
+infall_machs = 1.41, #np.logspace(0,3,7,base=2) # the list of infall mach #'s we want - ranges from 1 to 8, evenly spaced in log space (each is a certain % larger than the last, in a geometric progression)
 alphas = 0, 0.5, 1, 2, 4, 8 #list of turbulent virial parameters we want - 0 is no initial turbulence
 mus = 4, #np.inf, 4, 2, 1, 0.5, 0.25  # list of mass-to-flux ratios (greek letter mu) that we want - infinity is no magnetic field, ~0 is very strong magnetic field
 seeds = 42, #42, 2, 3 # different initial turbulent seed fields - so that we try a few different random samplings of the initial turbulence to make sure results are not a fluke
@@ -32,6 +34,8 @@ if not isdir("allPickle"): mkdir("allPickle") # if the directory for the run doe
 dict = {}
 MachDict = {}
 tenPercentFractionDict = {}
+
+
 for infall_mach in infall_machs:
     for alpha in alphas:
         for mu in mus:
@@ -52,14 +56,15 @@ for infall_mach in infall_machs:
                     tenPercentFractionDict[run_name] = {}
                     MachList = []
                     tenPercentList = []
+                    d="/work/08056/hlane17/frontera/fragthreshold" + run_name + "/output"
                     numFiles = 0
-                    d="/work/08056/hlane17/frontera/fragthreshold/" + run_name + "/output"
                     for path in os.listdir(d):
                         if os.path.isfile(os.path.join(d, path)):
                             numFiles += 1
                     system("pwd")
                     print(numFiles)
-                    for i in range(numFiles-5,numFiles-4): 
+                    numTot = numFiles-5
+                    for i in range(numTot,numTot+1): 
                         tenPercentFraction = []
                         tenPercentList = []
                         MachDict[run_name][i] = MachList
@@ -83,13 +88,11 @@ for infall_mach in infall_machs:
                         tenPercentFraction.append(len(tenPercentList)/len(mStar))
                         MachList.append(infall_mach)
 
-                    dict[run_name] = [tenPercentFractionDict, MachDict]
+                    dict[run_name] = [tenPercentFractionDict, MachDict, numTot]
                     chdir("../") # go back to the top level directory
                     chdir("allPickle") #switch to pickle directory
                     F = open(run_name + '.pickle','wb')
                     pickle.dump(dict[run_name], F)
                     F.close()
                     chdir("../") #go back to the top level directory
-
-
 
