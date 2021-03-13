@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[2]:
-
-
 import numpy as np
 import h5py
 from matplotlib import pyplot as plt
@@ -13,9 +7,6 @@ from os import system, mkdir, chdir
 from glob import glob
 from os.path import isdir
 import numpy as np
-
-
-# In[19]:
 
 
 #location = "/home/hlane/project1Sims/"
@@ -70,7 +61,7 @@ for infall_mach in infall_machs:
                         tenPercentFraction = []
                         tenPercentList = []
                         MachDict[run_name][i] = MachList
-                        tenPercentFractionDict[run_name][i] = tenPercentList
+                        
 
                         ext='00'+str(i);
                         if (i>=10): ext='0'+str(i) #This resolves naming issues
@@ -90,6 +81,7 @@ for infall_mach in infall_machs:
                                 noValue = 0
                                 tenPercentList.append(noValue)
                         tenPercentFraction.append(len(tenPercentList)/len(mStarList))
+                        tenPercentFractionDict[run_name][i] = tenPercentFraction
                         MachList.append(infall_mach)
 
                     dict[run_name] = [tenPercentFractionDict, MachDict, numTot]
@@ -99,3 +91,4 @@ for infall_mach in infall_machs:
                     pickle.dump(dict[run_name], F)
                     F.close()
                     chdir("../") #go back to the top level directory
+
