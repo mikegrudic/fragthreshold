@@ -8,6 +8,7 @@ import numpy as np
 import h5py
 from matplotlib import pyplot as plt
 import pickle
+import os
 from os import system, mkdir, chdir
 from glob import glob
 from os.path import isdir
