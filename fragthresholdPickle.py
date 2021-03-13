@@ -5,7 +5,6 @@
 
 
 import numpy as np
-import load_from_snapshot
 import h5py
 from matplotlib import pyplot as plt
 import pickle
