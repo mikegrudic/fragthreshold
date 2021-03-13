@@ -17,7 +17,7 @@ import numpy as np
 
 
 #This program is intended to be run in the directory that contains a collection of simulations.
-chdir("/home/hlane/project1Sims")
+chdir("/work/08056/hlane17/frontera/fragthreshold")
 G = 4300.7 # gravitational constant in m/s - msun - pc units
 cs = 200 # isothermal sound speed in m/s (= pressure/density, appropriate for ISM at ~10K)
 sigma = 1e3 # surface density M/(pi R^2) in msun pc^-2 (this is arbitrary, just to set the dimensions of our problem - 1000 roughly corresponds to observed cores)
