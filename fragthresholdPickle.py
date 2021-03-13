@@ -52,6 +52,7 @@ for infall_mach in infall_machs:
                     tenPercentFractionDict[run_name] = {}
                     MachList = []
                     tenPercentList = []
+                    numFiles = 0
                     d="/work/08056/hlane17/frontera/fragthreshold/" + run_name + "/output"
                     for path in os.listdir(d):
                         if os.path.isfile(os.path.join(d, path)):
