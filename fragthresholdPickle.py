@@ -69,18 +69,18 @@ for infall_mach in infall_machs:
                         f = h5py.File("output/snapshot_" + ext + ".hdf5", "r")  #opens file
                         try:
                             mStar = np.array(f["PartType5"]["Masses"])     #reads file
-                            mStarList.append(mStar)
+                            #mStarList.append(mStar)
                         except: 
-                            mStar = 0               #If there are no stars, the mass is zero.
-                            mStarList.append(mStar)
-                            print(mStarList)
-                        for u in mStarList:
+                            mStar = np.array([0])               #If there are no stars, the mass is zero.
+                            #mStarList.append(mStar)
+                            print(mStar)
+                        for u in mStar:
                             if (10*u > mgasInit):
                                 tenPercentList.append(u)
                             else:
                                 noValue = 0
                                 tenPercentList.append(noValue)
-                        tenPercentFraction.append(len(tenPercentList)/len(mStarList))
+                        tenPercentFraction.append(sum(tenPercentList)/(mgasInit))
                         tenPercentFractionDict[run_name][i] = tenPercentFraction
                         MachList.append(infall_mach)
 
