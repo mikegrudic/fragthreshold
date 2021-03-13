@@ -10,7 +10,7 @@ import numpy as np
 
 
 #location = "/home/hlane/project1Sims/"
-location = "/work/08056/hlane17/frontera/fragthreshold"
+location = "/work/08056/hlane17/frontera/fragthreshold/"
 #This program is intended to be run in the directory that contains a collection of simulations.
 chdir(location)
 G = 4300.7 # gravitational constant in m/s - msun - pc units
