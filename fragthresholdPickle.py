@@ -15,7 +15,7 @@ from os.path import isdir
 import numpy as np
 
 
-# In[31]:
+# In[52]:
 
 
 #location = "/home/hlane/project1Sims/"
@@ -26,17 +26,16 @@ G = 4300.7 # gravitational constant in m/s - msun - pc units
 cs = 200 # isothermal sound speed in m/s (= pressure/density, appropriate for ISM at ~10K)
 sigma = 1e3 # surface density M/(pi R^2) in msun pc^-2 (this is arbitrary, just to set the dimensions of our problem - 1000 roughly corresponds to observed cores)
 
-infall_machs = 1.41, 1#np.logspace(0,3,7,base=2) # the list of infall mach #'s we want - ranges from 1 to 8, evenly spaced in log space (each is a certain % larger than the last, in a geometric progression)
+infall_machs = np.logspace(0,3,7,base=2) # the list of infall mach #'s we want - ranges from 1 to 8, evenly spaced in log space (each is a certain % larger than the last, in a geometric progression)
 alphas = 0, 0.5, 1, 2, 4, 8 #list of turbulent virial parameters we want - 0 is no initial turbulence
 mus = 4, #np.inf, 4, 2, 1, 0.5, 0.25  # list of mass-to-flux ratios (greek letter mu) that we want - infinity is no magnetic field, ~0 is very strong magnetic field
 seeds = 42, #42, 2, 3 # different initial turbulent seed fields - so that we try a few different random samplings of the initial turbulence to make sure results are not a fluke
 sol_fracs = 0.5,  # 0, 1 # fraction of turbulent field in solenoidal modes 
 if not isdir("allPickle"): mkdir("allPickle") # if the directory for the run does not exist, create it
 dict = {}
-MachDict = {}
 AlphaDict = {}
 tenPercentFractionDict = {}
-
+mStarTotalDict = {}
 
 for infall_mach in infall_machs:
     for alpha in alphas:
@@ -51,15 +50,13 @@ for infall_mach in infall_machs:
                     gas_we_care_about = (ids<=Ngas)
                     ids = ids[gas_we_care_about]
                     
-                    mgasInit = np.sum(np.array(F["PartType0"]["Masses"])[ids]) #MassGas in snapshot 1
+                    mCloudInit = np.sum(np.array(F["PartType0"]["Masses"])[ids]) #MassGas in snapshot 1
     
                     dict = {}
-                    MachDict[run_name] = {}
-                    AlphaDict[run_name] = {}
                     tenPercentFractionDict[run_name] = {}
-                    MachList = []
-                    AlphaList = []
+                    mStarTotalDict[run_name] = {}
                     tenPercentList = []
+                    massStars = []
                     d=location + run_name + "/output"
                     numFiles = 0
                     for path in os.listdir(d):
@@ -71,7 +68,7 @@ for infall_mach in infall_machs:
                     for i in range(numTot,numTot+1): 
                         tenPercentFraction = []
                         tenPercentList = []
-
+                        mStarTotal = []
 
                         ext='00'+str(i);
                         if (i>=10): ext='0'+str(i) #This resolves naming issues
@@ -79,33 +76,31 @@ for infall_mach in infall_machs:
                         f = h5py.File("output/snapshot_" + ext + ".hdf5", "r")  #opens file
                         try:
                             mStar = np.array(f["PartType5"]["Masses"])     #reads file
+                            mStarTotal.append(sum(mStar))
+
                         except: 
                             mStar = np.array([0])               #If there are no stars, the mass is zero.
-                            print(mStar)
+                            mStarTotal.append(sum(mStar))
+
                         for u in mStar:
-                            if (10*u > mgasInit):
+                            if (10*u > mCloudInit):
                                 tenPercentList.append(u)
                             else:
                                 noValue = 0
                                 tenPercentList.append(noValue)
-                        tenPercentFraction.append(sum(tenPercentList)/(mgasInit))
+                        print(mStarTotal)
+                        print(mCloudInit)
+                        mStarTotalDict[run_name][i] = mStarTotal
+                        
+                        tenPercentFraction.append(sum(tenPercentList)/(mCloudInit))
                         tenPercentFractionDict[run_name][i] = tenPercentFraction
-                        MachList.append(infall_mach)
-                        AlphaList.append(alpha)
-                        MachDict[run_name][i] = MachList
-                        AlphaDict[run_name][i] = AlphaList
+                        
 
-                    dict[run_name] = [tenPercentFractionDict, MachDict, numTot, AlphaDict]
+                    dict[run_name] = [tenPercentFractionDict, mStarTotalDict, numTot, mCloudInit]
                     chdir("../") # go back to the top level directory
                     chdir("allPickle") #switch to pickle directory
                     F = open(run_name + '.pickle','wb')
                     pickle.dump(dict[run_name], F)
                     F.close()
                     chdir("../") #go back to the top level directory
-
-
-# In[ ]:
-
-
-
 
