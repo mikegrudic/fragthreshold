@@ -15,10 +15,10 @@ from os.path import isdir
 import numpy as np
 
 
-# In[52]:
+# In[58]:
 
 
-#location = "/home/hlane/project1Sims/"
+location = "/home/hlane/project1Sims/"
 location = "/work/08056/hlane17/frontera/fragthreshold/"
 #This program is intended to be run in the directory that contains a collection of simulations.
 chdir(location)
@@ -34,7 +34,7 @@ sol_fracs = 0.5,  # 0, 1 # fraction of turbulent field in solenoidal modes
 if not isdir("allPickle"): mkdir("allPickle") # if the directory for the run does not exist, create it
 dict = {}
 AlphaDict = {}
-tenPercentFractionDict = {}
+tenPercentMass = {}
 mStarTotalDict = {}
 
 for infall_mach in infall_machs:
@@ -53,7 +53,7 @@ for infall_mach in infall_machs:
                     mCloudInit = np.sum(np.array(F["PartType0"]["Masses"])[ids]) #MassGas in snapshot 1
     
                     dict = {}
-                    tenPercentFractionDict[run_name] = {}
+                    tenPercentMass[run_name] = {}
                     mStarTotalDict[run_name] = {}
                     tenPercentList = []
                     massStars = []
@@ -66,7 +66,7 @@ for infall_mach in infall_machs:
                     print(numFiles)
                     numTot = numFiles-5
                     for i in range(numTot,numTot+1): 
-                        tenPercentFraction = []
+                        tenPercentSinks = []
                         tenPercentList = []
                         mStarTotal = []
 
@@ -92,15 +92,21 @@ for infall_mach in infall_machs:
                         print(mCloudInit)
                         mStarTotalDict[run_name][i] = mStarTotal
                         
-                        tenPercentFraction.append(sum(tenPercentList)/(mCloudInit))
-                        tenPercentFractionDict[run_name][i] = tenPercentFraction
+                        tenPercentSinks.append(sum(tenPercentList))
+                        tenPercentMass[run_name][i] = tenPercentSinks
                         
 
-                    dict[run_name] = [tenPercentFractionDict, mStarTotalDict, numTot, mCloudInit]
+                    dict[run_name] = [tenPercentMass, mStarTotalDict, numTot, mCloudInit]
                     chdir("../") # go back to the top level directory
                     chdir("allPickle") #switch to pickle directory
                     F = open(run_name + '.pickle','wb')
                     pickle.dump(dict[run_name], F)
                     F.close()
                     chdir("../") #go back to the top level directory
+
+
+# In[ ]:
+
+
+
 
