@@ -15,7 +15,7 @@ from os.path import isdir
 import numpy as np
 
 
-# In[58]:
+# In[64]:
 
 
 #location = "/home/hlane/project1Sims/"
@@ -68,7 +68,6 @@ for infall_mach in infall_machs:
                     for i in range(numTot,numTot+1): 
                         tenPercentSinks = []
                         tenPercentList = []
-                        mStarTotal = []
 
                         ext='00'+str(i);
                         if (i>=10): ext='0'+str(i) #This resolves naming issues
@@ -76,31 +75,25 @@ for infall_mach in infall_machs:
                         f = h5py.File("output/snapshot_" + ext + ".hdf5", "r")  #opens file
                         try:
                             mStar = np.array(f["PartType5"]["Masses"])     #reads file
-                            mStarTotal.append(sum(mStar))
 
                         except: 
                             mStar = np.array([0])               #If there are no stars, the mass is zero.
-                            mStarTotal.append(sum(mStar))
 
                         for u in mStar:
                             if (10*u > mCloudInit):
                                 tenPercentList.append(u)
-                            else:
-                                noValue = 0
-                                tenPercentList.append(noValue)
-                        print(mStarTotal)
-                        print(mCloudInit)
-                        mStarTotalDict[run_name][i] = mStarTotal
+                        mStarTotalDict[run_name][i] = np.sum(mStar)
                         
-                        tenPercentSinks.append(sum(tenPercentList))
-                        tenPercentMass[run_name][i] = tenPercentSinks
+                        tenPercentMass[run_name][i] = tenPercentList
                         
-
+                    print("Creating pickle dictionaries")
                     dict[run_name] = [tenPercentMass, mStarTotalDict, numTot, mCloudInit]
                     chdir("../") # go back to the top level directory
                     chdir("allPickle") #switch to pickle directory
+                    print("Switched to allPickle")
                     F = open(run_name + '.pickle','wb')
                     pickle.dump(dict[run_name], F)
+                    print("Dumped Pickle")
                     F.close()
                     chdir("../") #go back to the top level directory
 
