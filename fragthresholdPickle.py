@@ -18,7 +18,7 @@ import numpy as np
 # In[58]:
 
 
-location = "/home/hlane/project1Sims/"
+#location = "/home/hlane/project1Sims/"
 location = "/work/08056/hlane17/frontera/fragthreshold/"
 #This program is intended to be run in the directory that contains a collection of simulations.
 chdir(location)
