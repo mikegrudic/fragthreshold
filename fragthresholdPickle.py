@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[2]:
+# In[ ]:
 
 
 import numpy as np
@@ -15,7 +15,7 @@ from os.path import isdir
 import numpy as np
 
 
-# In[64]:
+# In[ ]:
 
 
 #location = "/home/hlane/project1Sims/"
@@ -66,23 +66,23 @@ for infall_mach in infall_machs:
                     print(numFiles)
                     numTot = numFiles-5
                     for i in range(numTot,numTot+1): 
-                        tenPercentSinks = []
                         tenPercentList = []
-
+                        starList = []
+                        
                         ext='00'+str(i);
                         if (i>=10): ext='0'+str(i) #This resolves naming issues
                         if (i>=100): ext=str(i)
                         f = h5py.File("output/snapshot_" + ext + ".hdf5", "r")  #opens file
                         try:
                             mStar = np.array(f["PartType5"]["Masses"])     #reads file
-
+                            starList.append(mStar)
                         except: 
                             mStar = np.array([0])               #If there are no stars, the mass is zero.
-
+                            starList.append(mStar)
                         for u in mStar:
                             if (10*u > mCloudInit):
                                 tenPercentList.append(u)
-                        mStarTotalDict[run_name][i] = np.sum(mStar)
+                        mStarTotalDict[run_name][i] = starList
                         
                         tenPercentMass[run_name][i] = tenPercentList
                         
