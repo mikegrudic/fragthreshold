@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[ ]:
+# In[2]:
 
 
 import numpy as np
@@ -15,7 +15,7 @@ from os.path import isdir
 import numpy as np
 
 
-# In[ ]:
+# In[5]:
 
 
 #location = "/home/hlane/project1Sims/"
@@ -80,7 +80,7 @@ for infall_mach in infall_machs:
                             mStar = np.array([0])               #If there are no stars, the mass is zero.
                             starList.append(mStar)
                         for u in mStar:
-                            if (10*u > mCloudInit):
+                            if (10*u > sum(starList)):
                                 tenPercentList.append(u)
                         mStarTotalDict[run_name][i] = starList
                         
