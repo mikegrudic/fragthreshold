@@ -29,7 +29,7 @@ for infall_mach in infall_machs:
                     if not isdir(run_name + "/output"):
                         chdir(run_name)
                         submit_command = "sbatch " + run_name + ".sh"
-                        print(submit_command)
+                        system(submit_command)
 
                         chdir("../") # go back to the top level directory
                     else:
