@@ -30,17 +30,17 @@ for infall_mach in infall_machs:
 
                     run_name = "mach%g_alpha%g_mu%g_sol%g_Res%d_%d"%(round(infall_mach,2), round(alpha,2), round(mu,2), sol_frac, round(Ngas**(1./3)), seed) # this will be the unique identifier for the run - will want to create a new directory with this name
                     if not isdir(run_name):
-                        #mkdir(run_name) # if the directory for the run does not exist, create it
+                        mkdir(run_name) # if the directory for the run does not exist, create it
                         chdir(run_name)
                         makecloud_command = "MakeCloud.py --M=%g --R=%g --N=%d --warmgas --bturb=%g --alpha_turb=%g --turb_sol=%g"%(M,R,Ngas,Emag,alpha, sol_frac)
-                        print("This should not be here" + run_name)
-                        #system(makecloud_command)
-                        #system("cp ../gizmo/GIZMO .") # copy GIZMO binary to current directory
+                        print("Creating: " + run_name)
+                        system(makecloud_command)
+                        system("cp ../gizmo/GIZMO .") # copy GIZMO binary to current directory
 
-                        #params_file_name = glob("params*.txt")[0] # to get the exact parameter filename, search for things matching the pattern and take the first result
+                        params_file_name = glob("params*.txt")[0] # to get the exact parameter filename, search for things matching the pattern and take the first result
 
-                        #submit_script_text = open("../template_submit.sh","r").read().replace("JOBNAME", run_name).replace("PARAMSFILE",params_file_name).replace("HOURS", str(run_length)) # generate the text to write to the submit script
-                        #open(run_name + ".sh", "w").write(submit_script_text) # write the submit script
+                        submit_script_text = open("../template_submit.sh","r").read().replace("JOBNAME", run_name).replace("PARAMSFILE",params_file_name).replace("HOURS", str(run_length)) # generate the text to write to the submit script
+                        open(run_name + ".sh", "w").write(submit_script_text) # write the submit script
                         chdir("../") # go back to the top level directory
                     else:
                         print("skipped")
