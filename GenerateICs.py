@@ -41,9 +41,9 @@ for infall_mach in infall_machs:
 
                         #submit_script_text = open("../template_submit.sh","r").read().replace("JOBNAME", run_name).replace("PARAMSFILE",params_file_name).replace("HOURS", str(run_length)) # generate the text to write to the submit script
                         #open(run_name + ".sh", "w").write(submit_script_text) # write the submit script
+                        chdir("../") # go back to the top level directory
                     else:
                         print("skipped")
-                    chdir("../") # go back to the top level directory
                 
 
 
