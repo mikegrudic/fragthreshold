@@ -3,7 +3,7 @@
 
 # In[1]:
 
-
+#Only to be executed in the $SCRATCH space
 from os import system, mkdir, chdir
 from glob import glob
 from os.path import isdir
