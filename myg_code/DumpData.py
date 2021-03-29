@@ -18,6 +18,7 @@ sol_fracs = []
 seeds = []
 mus = []
 Ngas = []
+Nstars = []
 
 
 for dir in glob(sims_dir+"mach*alpha*/output"): # this will work without having to update the list of parameters in the script - just looks for all directories that match the pattern and have an output directory inside
@@ -40,11 +41,12 @@ for dir in glob(sims_dir+"mach*alpha*/output"): # this will work without having 
     
     SFEs.append(mstar.sum()/(mstar.sum() + mgas.sum()))
     tenpercent_frac.append(np.sum(mstar[mstar > 0.1*mstar.sum()]))
+    Nstars.append(len(mstar))
 
     if mstar.sum() > 0: Mmax_frac.append(mstar.max() / mstar.sum()) 
     else: Mmax_frac.append(np.nan) # handle the empty case where max 
 
-np.savetxt("SimulationData.dat", np.c_[infall_machs, alphas, mus, sol_fracs, Ngas, seeds, SFEs, tenpercent_frac, Mmax_frac], 
-           header = "#(0) infall mach (1) alpha (2) mu (3) solenoidal fractino (4) Ngas (5) seed (6) SFE (7) > 10% mass frac (8) max mass frac"
+np.savetxt("SimulationData.dat", np.c_[infall_machs, alphas, mus, sol_fracs, Ngas, seeds, SFEs, Nstars, tenpercent_frac, Mmax_frac], 
+           header = "#(0) infall mach (1) alpha (2) mu (3) solenoidal fractino (4) Ngas (5) seed (6) SFE (7) Nstars (8) > 10% mass frac (9) max mass frac"
 )
 
