@@ -12,6 +12,7 @@ sims_dir = "/work/08056/hlane17/frontera/fragthreshold/"
 SFEs = [] # star formation efficiency: mstar / (mstar + mgas)
 tenpercent_frac = [] # fraction of stellar mass in stars > 10% the total stellar mass
 Mmax_frac = [] # mass fraction of the most massive thing
+M2_frac = [] # mass fraction of second-most massive thing
 infall_machs = []
 alphas = []
 sol_fracs = []
@@ -45,8 +46,10 @@ for dir in glob(sims_dir+"mach*alpha*/output"): # this will work without having 
 
     if mstar.sum() > 0: Mmax_frac.append(mstar.max() / mstar.sum()) 
     else: Mmax_frac.append(np.nan) # handle the empty case where max 
+    if len(mstar) > 1: M2_frac.append(np.sort(mstar)[-2] / mstar.sum()) # mass fraction of second-most massive star
+    else: M2_frac.append(np.nan)
 
-np.savetxt("SimulationData.dat", np.c_[infall_machs, alphas, mus, sol_fracs, Ngas, seeds, SFEs, Nstars, tenpercent_frac, Mmax_frac], 
-           header = "#(0) infall mach (1) alpha (2) mu (3) solenoidal fractino (4) Ngas (5) seed (6) SFE (7) Nstars (8) > 10% mass frac (9) max mass frac"
+np.savetxt("SimulationData.dat", np.c_[infall_machs, alphas, mus, sol_fracs, Ngas, seeds, SFEs, Nstars, tenpercent_frac, Mmax_frac, M2_frac], 
+           header = "#(0) infall mach (1) alpha (2) mu (3) solenoidal fractino (4) Ngas (5) seed (6) SFE (7) Nstars (8) > 10% mass frac (9) max mass frac (10) M2_frac"
 )
 
