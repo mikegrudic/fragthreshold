@@ -48,22 +48,27 @@ for dir in glob(sims_dir+"mach*alpha*/output"): # this will work without having 
     SFEs.append(mstar.sum()/(mstar.sum() + mgas.sum()))
     tenpercent_frac.append(np.sum(mstar[mstar > 0.1*mstar.sum()]))
     Nstars.append(len(mstar))
-    F.close()
-    for i in range(751):
-        ext='00'+str(i);
-        if (i>=10): ext='0'+str(i)                                     #This resolves naming issues
-        if (i>=100): ext=str(i)
-        current_snap = sorted(glob(dir+"/snapshot*.hdf5"))[i] # get the last snapshot
-        print("snap_" + str(i))
-        F = h5py.File(current_snap, "r")  #opens file
-        if(mstar.sum() > 0):
-            time = load_from_snapshot.load_from_snapshot("Time",0,dir,i)
-            firstStarTime.append(time)
-            break
-        else:
+
+    if not "PartType5" in F.keys():  # get the stellar masses - if there are no PartType5 for some reason then we just create an empty array
+        time = np.nan
+    else:
+        for i in range(751):
+            ext='00'+str(i);
+            if (i>=10): ext='0'+str(i)                                     #This resolves naming issues
+            if (i>=100): ext=str(i)
+            current_snap = sorted(glob(dir+"/snapshot*.hdf5"))[i] # get the last snapshot
+            print("snap_" + str(i))
+            f = h5py.File(current_snap, "r")  #opens file
+
+            if(mstar.sum() > 0):
+                time = load_from_snapshot.load_from_snapshot("Time",0,dir,i)
+                firstStarTime.append(time)
+                print("Star found, breaking")
+                break
+            else:
+                pass
+            f.close()
             F.close()
-            pass
-        F.close()
         
     if mstar.sum() > 0: Mmax_frac.append(mstar.max() / mstar.sum()) 
     else: Mmax_frac.append(np.nan) # handle the empty case where max 
