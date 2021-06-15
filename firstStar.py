@@ -61,8 +61,10 @@ for dir in glob(sims_dir+"mach*alpha*/output"): # this will work without having 
             current_snap = sorted(glob(dir+"/snapshot*.hdf5"))[i] # get the last snapshot
             print("snap_" + str(i))
             f = h5py.File(current_snap, "r")  #opens file
-            mstar2 = np.array(f["PartType5"]["Masses"])
-
+            try:
+                mstar2 = np.array(f["PartType5"]["Masses"])
+            except:
+                mstar2 = 0
             if(mstar2.sum() > 0):
                 time = load_from_snapshot.load_from_snapshot("Time",0,dir,i)
                 firstStarTime.append(time)
