@@ -51,6 +51,8 @@ for dir in glob(sims_dir+"mach*alpha*/output"): # this will work without having 
 
     if not "PartType5" in F.keys():  # get the stellar masses - if there are no PartType5 for some reason then we just create an empty array
         time = np.nan
+        firstSTarTime.append(time)
+        print("no star")
     else:
         for i in range(751):
             ext='00'+str(i);
@@ -59,10 +61,12 @@ for dir in glob(sims_dir+"mach*alpha*/output"): # this will work without having 
             current_snap = sorted(glob(dir+"/snapshot*.hdf5"))[i] # get the last snapshot
             print("snap_" + str(i))
             f = h5py.File(current_snap, "r")  #opens file
+            mstar2 = np.array(f["PartType5"]["Masses"])
 
-            if(mstar.sum() > 0):
+            if(mstar2.sum() > 0):
                 time = load_from_snapshot.load_from_snapshot("Time",0,dir,i)
                 firstStarTime.append(time)
+                print (mstar.sum())
                 print("Star found, breaking")
                 break
             else:
