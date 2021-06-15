@@ -54,13 +54,14 @@ for dir in glob(sims_dir+"mach*alpha*/output"): # this will work without having 
         if (i>=10): ext='0'+str(i)                                     #This resolves naming issues
         if (i>=100): ext=str(i)
         current_snap = sorted(glob(dir+"/snapshot*.hdf5"))[i] # get the last snapshot
-
+        print("snap_" + str(i))
         F = h5py.File(current_snap, "r")  #opens file
         if(mstar.sum() > 0):
-            time = load_from_snapshot.load_from_snapshot("Time",0,datafolder,i)
+            time = load_from_snapshot.load_from_snapshot("Time",0,dir,i)
             firstStarTime.append(time)
             break
         else:
+            F.close()
             pass
         F.close()
         
