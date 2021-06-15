@@ -10,7 +10,7 @@ import numpy as np
 from os.path import isdir
 import load_from_snapshot
 
-sims_dir = "/work/08056/hlane17/frontera/fragthreshold/"
+sims_dir = "/work2/08056/hlane17/frontera/fragthreshold/"
 
 # initialize lists to store all the stuff we will want in the final data file
 SFEs = [] # star formation efficiency: mstar / (mstar + mgas)
