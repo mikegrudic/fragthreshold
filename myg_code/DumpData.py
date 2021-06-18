@@ -6,7 +6,7 @@ import numpy as np
 from os.path import isdir
 
 
-sims_dir = "/work/08056/hlane17/frontera/fragthreshold/"
+sims_dir = "/scratch1/08056/hlane17/fragthreshold/"
 
 # initialize lists to store all the stuff we will want in the final data file
 SFEs = [] # star formation efficiency: mstar / (mstar + mgas)

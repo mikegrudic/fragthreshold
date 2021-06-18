@@ -1,6 +1,4 @@
 #!/bin/bash                                                                     
-#SBATCH -J JOBNAME -p normal -N 1 --ntasks-per-node 28 -t HOURS:00:00 -A AST20019 
-export OMP_NUM_THREADS=2
+#SBATCH -J JOBNAME -p QUEUE -N NUMNODES --ntasks-per-node 56 -t HOURS:00:00 -A AST21002
 source $HOME/.bashrc
-ibrun ./GIZMO PARAMSFILE 0 1>gizmo.out 2>gizmo.err &
-wait
+
