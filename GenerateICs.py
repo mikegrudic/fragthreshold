@@ -33,7 +33,7 @@ for infall_mach in infall_machs:
 
                 num_nodes = len(seeds) * num_cores_per_run // 56
                 print("num nodes=%d num_cores_per_run=%g"%(num_nodes,num_cores_per_run))
-                if num_nodes == 2: queue = "small"
+                if num_nodes <= 2: queue = "small"
                 else: queue = "normal"
                 run_length = 48 #min(round((Ngas/1e4)**(5./3)), 48) # run length in hours
                 job_name = "mach%g_alpha%g_mu%g_sol%g_Res%d"%(round(infall_mach,2), round(alpha,2), round(mu,2), sol_frac, round(Ngas**(1./3)))
