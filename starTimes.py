@@ -9,6 +9,7 @@ from glob import glob
 import numpy as np
 from os.path import isdir
 import load_from_snapshot
+from os import system, mkdir, chdir
 
 sims_dir = "/scratch1/08056/hlane17/fragset2/mach8_alpha8_mu4_sol1_Res101/"
 
@@ -17,13 +18,13 @@ Mass_star = []
 Time_list = []
 for j in range(1, 15):
     print(j)
-    location = sims_dir + "mach8_alpha8_mu4_sol1_Res101 "+ "_" + j
+    location = sims_dir + "mach8_alpha8_mu4_sol1_Res101"+ "_" + str(j)
     chdir(location)
     for i in range(101):
         ext='00'+str(i);
         if (i>=10): ext='0'+str(i)                                     #This resolves naming issues
         if (i>=100): ext=str(i)
-        current_snap = sorted(location+"/snapshot*.hdf5")[i] # get the last snapshot
+        current_snap = "/snapshot_" + str(ext) + ".hdf5" # get the last snapshot
     
     
         print("snap_" + str(i))
