@@ -20,22 +20,22 @@ for j in range(1, 15):
     location = sims_dir + "mach8_alpha8_mu4_sol1_Res101 "+ "_" + j
     chdir(location)
     for i in range(101):
-    ext='00'+str(i);
-    if (i>=10): ext='0'+str(i)                                     #This resolves naming issues
-    if (i>=100): ext=str(i)
-    current_snap = sorted(location+"/snapshot*.hdf5")[i] # get the last snapshot
+        ext='00'+str(i);
+        if (i>=10): ext='0'+str(i)                                     #This resolves naming issues
+        if (i>=100): ext=str(i)
+        current_snap = sorted(location+"/snapshot*.hdf5")[i] # get the last snapshot
     
     
-    print("snap_" + str(i))
-    f = h5py.File(current_snap, "r")  #opens file
-    try:
-        mstar = np.array(f["PartType5"]["Masses"])
-    except:
-        mstar = 0
-    Mass_star.append(mstar)
-    time = load_from_snapshot.load_from_snapshot("Time",0,location,i)
-    Time_list.append(time)
-    f.close()
+        print("snap_" + str(i))
+        f = h5py.File(current_snap, "r")  #opens file
+        try:
+            mstar = np.array(f["PartType5"]["Masses"])
+        except:
+            mstar = 0
+        Mass_star.append(mstar)
+        time = load_from_snapshot.load_from_snapshot("Time",0,location,i)
+        Time_list.append(time)
+        f.close()
         
 
 np.savetxt("starTime.dat", np.c_[Time_list, Mass_star], 
