@@ -14,9 +14,10 @@ from os import system, mkdir, chdir
 sims_dir = "/scratch1/08056/hlane17/fragset2/mach8_alpha8_mu4_sol1_Res101/"
 
 # initialize lists to store all the stuff we will want in the final data file
-Mass_star = {}
-Time_list = {}
+
 for j in range(1, 15):
+    Mass_star = []
+    Time_list = []
     print(j)
     location = sims_dir + "mach8_alpha8_mu4_sol1_Res101"+ "_" + str(j) + "/output/"
     chdir(location)
