@@ -38,7 +38,7 @@ for infall_mach in infall_machs:
                     if not path.exists("snapshot_101.hdf5"):
                         print(checkPath + " is not complete. Please check")
                     else:
-                        x = 1
+                        pass
                     chdir("../../") # go back to the top level directory
                 chdir("../")
                 print("Successfully checked and verified contents of " + run_name)
