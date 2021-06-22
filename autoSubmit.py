@@ -4,7 +4,8 @@
 # In[1]:
 
 #Only to be executed in the $SCRATCH space
-from os import system, mkdir, chdir
+import os.path
+from os import system, mkdir, chdir, path
 from glob import glob
 from os.path import isdir
 import numpy as np
