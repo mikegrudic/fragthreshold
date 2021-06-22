@@ -1,5 +1,3 @@
-  GNU nano 2.3.1                                              File: checkCompletion.py                                                                                                   
-
 #!/usr/bin/env python
 # coding: utf-8
 
