@@ -21,7 +21,7 @@ for j in range(1, 15):
     print(j)
     location = sims_dir + "mach8_alpha8_mu4_sol1_Res101"+ "_" + str(j) + "/output/"
     chdir(location)
-    for i in range(101):
+    for i in range(102):
         ext='00'+str(i);
         if (i>=10): ext='0'+str(i)                                     #This resolves naming issues
         if (i>=100): ext=str(i)
