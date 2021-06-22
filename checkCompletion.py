@@ -41,5 +41,5 @@ for infall_mach in infall_machs:
                         pass
                     chdir("../") # go back to the top level directory
                 chdir("../")
-
+                print("Successfully checked and verified contents of " run_name)
 
