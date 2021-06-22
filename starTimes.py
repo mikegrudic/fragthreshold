@@ -38,11 +38,11 @@ for j in range(1, 15):
         time = load_from_snapshot.load_from_snapshot("Time",0,location,i)
         Time_list.append(time)
         f.close()
-        
+    chdir("../../")    
     np.savetxt("starTime" + str(j) + ".dat", np.c_[Time_list, Mass_star], 
                header = "#(0) infall mach (1) alpha (2) mu (3) solenoidal fractino (4) Ngas (5) seed (6) SFE (7) Nstars (8) > 10% mass frac (9) max mass frac (10) M2_frac (11) first star time"
     )
-
+    
 
 # In[ ]:
 
