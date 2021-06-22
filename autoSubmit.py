@@ -27,14 +27,14 @@ for infall_mach in infall_machs:
                     if sol_frac != 0.5 and mu != 4: continue
                     Ngas = max(250 * infall_mach**4, 100000) # number of gas cells in the core proper - we might as well always have at least 10k, but in Guszejnov 2020 we showed you want to make sure it's at least ~100 Mach^4 as well for things to really be converged
                     run_name = "mach%g_alpha%g_mu%g_sol%g_Res%d"%(round(infall_mach,2), round(alpha,2), round(mu,2), sol_frac, round(Ngas**(1./3))) # this will be the unique identifier for the run - will want to create a new directory with this name
-                        if not path.exists(run_name + "/slurm*.out"):
-                            chdir(run_name)
-                            submit_command = "sbatch " + run_name + ".sh"
-                            print(submit_command)
+                    if not path.exists(run_name + "/slurm*.out"):
+                        chdir(run_name)
+                        submit_command = "sbatch " + run_name + ".sh"
+                        print(submit_command)
 
-                            chdir("../") # go back to the top level directory
-                        else:
-                            print("skipped " + run_name)
+                        chdir("../") # go back to the top level directory
+                    else:
+                        print("skipped " + run_name)
 
 
 # In[ ]:
