@@ -31,7 +31,7 @@ for j in range(1, 15):
         print("snap_" + str(i))
         f = h5py.File(current_snap, "r")  #opens file
         try:
-            mstar = np.sum(np.array(f["PartType5"]["Masses"]))
+            mstar = np.sum(f["PartType5"]["Masses"])
         except:
             mstar = 0
         Mass_star.append(mstar)
