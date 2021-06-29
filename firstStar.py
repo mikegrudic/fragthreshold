@@ -10,7 +10,7 @@ import numpy as np
 from os.path import isdir
 import load_from_snapshot
 
-sims_dir = "/work2/08056/hlane17/frontera/fragthreshold/"
+sims_dir = "/scratch1/08056/hlane17/fragset2/"
 
 # initialize lists to store all the stuff we will want in the final data file
 SFEs = [] # star formation efficiency: mstar / (mstar + mgas)
@@ -26,8 +26,7 @@ Ngas = []
 Nstars = []
 firstStarTime = []
 
-for dir in glob(sims_dir+"mach*alpha*/output"): # this will work without having to update the list of parameters in the script - just looks for all directories that match the pattern and have an output directory inside
-    # get the run parameters from the directory name
+for dir in glob(sims_dir+"mach*alpha*/mach*alpha*/output"):    # get the run parameters from the directory name
     infall_machs.append(float(dir.split("mach")[1].split("_")[0])) # infall mach 
     alphas.append(float(dir.split("alpha")[1].split("_")[0])) # virial parameter
     mus.append(float(dir.split("mu")[1].split("_")[0])) # mass-to-flux ratio mu
