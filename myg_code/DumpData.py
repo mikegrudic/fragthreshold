@@ -22,7 +22,7 @@ Ngas = []
 Nstars = []
 
 
-for dir in glob(sims_dir+"mach*alpha*/output"): # this will work without having to update the list of parameters in the script - just looks for all directories that match the pattern and have an output directory inside
+for dir in glob(sims_dir+"mach*alpha*/mach*alpha*/output"): # this will work without having to update the list of parameters in the script - just looks for all directories that match the pattern and have an output directory inside
     # get the run parameters from the directory name
     infall_machs.append(float(dir.split("mach")[1].split("_")[0])) # infall mach 
     alphas.append(float(dir.split("alpha")[1].split("_")[0])) # virial parameter
