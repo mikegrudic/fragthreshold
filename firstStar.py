@@ -9,6 +9,7 @@ from glob import glob
 import numpy as np
 from os.path import isdir
 import load_from_snapshot
+import os
 
 sims_dir = "/scratch1/08056/hlane17/fragset2/mach*alpha*/"
 
@@ -65,10 +66,14 @@ for dir in glob(sims_dir+"mach*alpha*_*[0-9]/output"):                         #
                 mstar2 = np.array(f["PartType5"]["Masses"])
             except:
                 mstar2 = 0
-            if(mstar2.sum() > 0):
+            try:
+                mstar2 = mstar2.sum()
+            except:
+                mstar2 = mstar2
+            if(mstar2 > 0):
                 time = load_from_snapshot.load_from_snapshot("Time",0,dir,i)
                 firstStarTime.append(time)
-                print (mstar.sum())
+                print (mstar2)
                 print("Star found, breaking")
                 break
             else:
