@@ -25,14 +25,15 @@ mus = []
 Ngas = []
 Nstars = []
 firstStarTime = []
-
-for dir in glob(sims_dir+"mach*alpha*_*[0-9]/output"):                         # get the run parameters from the directory name
+for dir in glob(sims_dir+"mach*alpha*_*[0-9]"):
     infall_machs.append(float(dir.split("mach")[1].split("_")[0]))      # infall mach 
     alphas.append(float(dir.split("alpha")[1].split("_")[0]))           # virial parameter
     mus.append(float(dir.split("mu")[1].split("_")[0]))                 # mass-to-flux ratio mu
     sol_fracs.append(float(dir.split("sol")[1].split("_")[0]))          # solenoidal fraction 
     seeds.append(float(dir.split("_")[-1].split("/")[0]))               # random seed
-    Ngas.append(float(dir.split("Res")[1].split("_")[0])**3)            # number of gas cells initially
+    Ngas.append(float(os.path.basename(os.path.normpath(dir))).split("Res")[1].split("_")[0])**3)            # number of gas cells initially  
+for dir in glob(sims_dir+"mach*alpha*_*[0-9]/output"):                         # get the run parameters from the directory name
+
     
     last_snap = sorted(glob(dir+"/snapshot*.hdf5"))[-1] # get the last snapshot
     
