@@ -53,7 +53,7 @@ for dir in glob(sims_dir+"mach*alpha*/mach*alpha*/output"):    # get the run par
         firstSTarTime.append(time)
         print("no star")
     else:
-        for i in range(751):
+        for i in range(101):
             ext='00'+str(i);
             if (i>=10): ext='0'+str(i)                                     #This resolves naming issues
             if (i>=100): ext=str(i)
