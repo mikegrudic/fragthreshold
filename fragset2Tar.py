@@ -5,6 +5,7 @@
 ###Don't run on head node. Run inside fragset2 directory.
 
 from os import system, mkdir, chdir
+import os
 from glob import glob
 from os.path import isdir
 import numpy as np
@@ -20,7 +21,8 @@ sims_dir = "/scratch1/08056/hlane17/fragset2"
 def TarDirectory(f):
     return print("tar -czvf " + f + ".tar.gz " + "/scratch1/08056/hlane17/fragset2/" + f) #!
 
-dirs = glob(sims_dir+"mach*alpha*")
+dir = glob(sims_dir+"mach*alpha*")
+dirs = os.path.basename(os.path.normpath(dir)
 Pool(nproc).map(TarDirectory, dirs)
 
 # In[ ]:
