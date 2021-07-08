@@ -19,10 +19,10 @@ nproc = multiprocessing.cpu_count()
 sims_dir = "/scratch1/08056/hlane17/fragset2/"
 
 def TarDirectory(f):
+    f = f.split("/")[-1]
     return print("tar -czvf " + f + ".tar.gz " + "/scratch1/08056/hlane17/fragset2/" + f) #!
-
-dir = glob(sims_dir+"mach*alpha*")
-dirs = os.path.basename(os.path.normpath(dir))
+    
+dirs = glob(sims_dir+"mach*alpha*")
 Pool(nproc).map(TarDirectory, dirs)
 
 # In[ ]:
